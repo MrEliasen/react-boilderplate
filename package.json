@@ -1,0 +1,28 @@
+{
+  "name": "aus-trail-ien",
+  "description": "",
+  "version": "0.1.0",
+  "engines": {
+    "node": "6.9.2"
+  },
+  "author": "Mark Eliasen <twitter.com/markeliasen>",
+  "scripts": {
+    "start": "",
+    "build": "webpack --progress --colors"
+  },
+  "dependencies": {
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-router": "^3.0.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.3.2",
+    "babel-preset-es2016": "^6.22.0",
+    "babel-preset-react": "^6.23.0",
+    "babel-preset-stage-0": "^6.22.0",
+    "react-hot-loader": "^3.0.0-beta.6",
+    "webpack": "^2.2.1"
+  },
+  "main": "webpack.config.js"
+}
