@@ -7,11 +7,11 @@
   },
   "author": "Mark Eliasen <twitter.com/markeliasen>",
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --inline",
     "lint": "eslint src",
     "prebuild": "rimraf dist",
-    "build": "cross-env NODE_ENV=production webpack -p --config webpack.config.production.js",
-    "postbuild": "copyfiles ./src/index.html dist"
+    "build": "npm run prebuild && cross-env NODE_ENV=production webpack -p --config webpack.config.production.js && npm run postbuild",
+    "postbuild": "copyfiles index.html dist && copyfiles -u 1 ./static/* dist"
   },
   "devDependencies": {
     "babel-core": "^6.23.1",
@@ -20,6 +20,7 @@
     "babel-preset-es2016": "^6.22.0",
     "babel-preset-es2017": "^6.22.0",
     "babel-preset-react": "^6.23.0",
+    "babel-preset-stage-2": "^6.22.0",
     "copyfiles": "^1.2.0",
     "cross-env": "^3.1.4",
     "react-hot-loader": "^3.0.0-beta.6",

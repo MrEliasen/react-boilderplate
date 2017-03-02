@@ -2,7 +2,7 @@
 * @Author: mark
 * @Date:   2017-03-01 15:30:19
 * @Last Modified by:   Mark Eliasen
-* @Last Modified time: 2017-03-01 17:53:24
+* @Last Modified time: 2017-03-02 15:18:02
 */
 var path = require('path');
 var webpack = require('webpack');
@@ -17,15 +17,15 @@ module.exports = {
     'webpack/hot/only-dev-server',
     // bundle the client for hot reloading
     // only- means to only hot reload for successful updates
-    './src/hotload.js',
+    './src/index.js'
     // the entry point of our app
   ],
 
   output: {
     filename: 'bundle.js',
     // the output bundle
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: '/static/'
+    path: path.resolve(__dirname, 'static/assets'),
+    publicPath: '/assets/'
     // necessary for HMR to know where to load the hot update chunks
   },
 
@@ -36,28 +36,29 @@ module.exports = {
       {
         test: /\.jsx?$/,
         use: [
-          'babel-loader',
+          'babel-loader'
         ],
-        exclude: /node_modules/,
-      },
-    ],
+        exclude: /node_modules/
+      }
+    ]
   },
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     // enable HMR globally
-    new webpack.NamedModulesPlugin(),
+    new webpack.NamedModulesPlugin()//,
     // prints more readable module names in the browser console on HMR updates
-    new webpack.NoEmitOnErrorsPlugin(),
+    //new webpack.NoEmitOnErrorsPlugin()
     // do not emit compiled assets that include errors
   ],
 
   devServer: {
     host: 'localhost',
     port: 3000,
+    inline: true,
     historyApiFallback: true,
     // respond to 404s with index.html
     hot: true,
     // enable HMR on the server
-  },
+  }
 };
