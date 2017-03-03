@@ -2,10 +2,11 @@
 * @Author: mark
 * @Date:   2017-03-01 15:30:19
 * @Last Modified by:   Mark Eliasen
-* @Last Modified time: 2017-03-02 15:18:02
+* @Last Modified time: 2017-03-03 13:06:23
 */
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: [
@@ -39,6 +40,14 @@ module.exports = {
           'babel-loader'
         ],
         exclude: /node_modules/
+      },
+      {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', 'sass-loader']
+        }),
+        exclude: /node_modules/
       }
     ]
   },
@@ -46,10 +55,11 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     // enable HMR globally
-    new webpack.NamedModulesPlugin()//,
+    new webpack.NamedModulesPlugin(),
     // prints more readable module names in the browser console on HMR updates
     //new webpack.NoEmitOnErrorsPlugin()
     // do not emit compiled assets that include errors
+    new ExtractTextPlugin('style.css')
   ],
 
   devServer: {
