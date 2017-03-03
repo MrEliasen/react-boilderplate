@@ -2,7 +2,7 @@
 * @Author: Mark Eliasen
 * @Date:   2017-03-01 17:44:28
 * @Last Modified by:   Mark Eliasen
-* @Last Modified time: 2017-03-03 13:28:00
+* @Last Modified time: 2017-03-03 16:47:44
 */
 const path = require('path');
 const webpack = require('webpack');
@@ -23,9 +23,7 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
-        use: [
-          'babel-loader'
-        ],
+        use: 'babel-loader',
         exclude: /node_modules/
       },
       {

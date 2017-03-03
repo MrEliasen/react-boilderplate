@@ -2,7 +2,7 @@
 * @Author: mark
 * @Date:   2017-03-01 15:30:19
 * @Last Modified by:   Mark Eliasen
-* @Last Modified time: 2017-03-03 13:06:23
+* @Last Modified time: 2017-03-03 16:47:35
 */
 const path = require('path');
 const webpack = require('webpack');
@@ -30,15 +30,13 @@ module.exports = {
     // necessary for HMR to know where to load the hot update chunks
   },
 
-  devtool: 'inline-source-map',
+  devtool: "eval-source-map",
 
   module: {
     rules: [
       {
         test: /\.jsx?$/,
-        use: [
-          'babel-loader'
-        ],
+        use: 'babel-loader',
         exclude: /node_modules/
       },
       {
@@ -59,7 +57,10 @@ module.exports = {
     // prints more readable module names in the browser console on HMR updates
     //new webpack.NoEmitOnErrorsPlugin()
     // do not emit compiled assets that include errors
-    new ExtractTextPlugin('style.css')
+    new ExtractTextPlugin('[name].css'),
+    new webpack.LoaderOptionsPlugin({
+      debug: true
+    })
   ],
 
   devServer: {
