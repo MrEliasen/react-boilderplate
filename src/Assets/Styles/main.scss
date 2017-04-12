@@ -1,0 +1,13 @@
+html, body {
+    margin: 0px;
+    padding: 0px;
+}
+
+* {
+    outline: 0 !important;
+}
+
+@import './partials/buttons.scss';
+
+/* Material UI */
+@import 'material-components-web/material-components-web';

@@ -2,7 +2,7 @@
 * @Author: mark
 * @Date:   2017-03-01 15:30:19
 * @Last Modified by:   Mark Eliasen
-* @Last Modified time: 2017-03-03 16:47:35
+* @Last Modified time: 2017-04-12 14:24:42
 */
 const path = require('path');
 const webpack = require('webpack');
@@ -18,7 +18,7 @@ module.exports = {
     'webpack/hot/only-dev-server',
     // bundle the client for hot reloading
     // only- means to only hot reload for successful updates
-    './src/index.js'
+    './src/index.js',
     // the entry point of our app
   ],
 
@@ -26,41 +26,73 @@ module.exports = {
     filename: 'bundle.js',
     // the output bundle
     path: path.resolve(__dirname, 'static/assets'),
-    publicPath: '/assets/'
+    publicPath: '/assets/',
     // necessary for HMR to know where to load the hot update chunks
   },
 
-  devtool: "eval-source-map",
+  devtool: 'eval-source-map',
 
   module: {
     rules: [
       {
         test: /\.jsx?$/,
         use: 'babel-loader',
-        exclude: /node_modules/
       },
       {
-        test: /\.scss$/,
+        test: /(\.css|\.scss)$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader', 'sass-loader']
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                sourceMap: false,
+                modules: true,
+                importLoaders: true,
+                localIdentName: '[local]',
+              },
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: function() {
+                  return [
+                    require('autoprefixer'),
+                  ];
+                },
+              },
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: false,
+                includePaths: [
+                  'node_modules',
+                  'bower_components',
+                  'src/Assets',
+                ],
+              },
+            },
+          ],
         }),
-        exclude: /node_modules/
-      }
-    ]
+      },
+    ],
   },
 
   plugins: [
+    new ExtractTextPlugin({
+      filename: '[name].css',
+      allChunks: true,
+    }),
     new webpack.HotModuleReplacementPlugin(),
     // enable HMR globally
     new webpack.NamedModulesPlugin(),
-    // prints more readable module names in the browser console on HMR updates
-    //new webpack.NoEmitOnErrorsPlugin()
-    // do not emit compiled assets that include errors
-    new ExtractTextPlugin('[name].css'),
+    // prints more readable module names in the
+    // browser console on HMR updates
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.LoaderOptionsPlugin({
-      debug: true
-    })
+      debug: true,
+    }),
   ],
 
   devServer: {
@@ -71,5 +103,5 @@ module.exports = {
     // respond to 404s with index.html
     hot: true,
     // enable HMR on the server
-  }
+  },
 };
