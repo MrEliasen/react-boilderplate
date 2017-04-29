@@ -2,20 +2,21 @@
 * @Author: Mark Eliasen
 * @Date:   2017-03-01 17:44:28
 * @Last Modified by:   Mark Eliasen
-* @Last Modified time: 2017-04-12 15:01:09
+* @Last Modified time: 2017-04-29 23:57:52
 */
 const path = require('path');
 const webpack = require('webpack');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
 
   output: {
-    filename: 'assets/bundle.js',
     // the output bundle
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'dist') + '/[hash]',
+    filename: 'output.[hash].bundle.js',
+    chunkFilename: '[id].[hash].bundle.js',
   },
 
   module: {
@@ -23,6 +24,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         use: 'babel-loader',
+        //exclude: /node_modules/,
       },
       {
         test: /(\.css|\.scss)$/,
@@ -61,6 +63,11 @@ module.exports = {
             },
           ],
         }),
+        //exclude: /node_modules/,
+      },
+      {
+        test: /\.(png|jpg|wav|mp3)$/,
+        loader: 'url-loader?limit=4096',
       },
     ],
   },
@@ -71,26 +78,21 @@ module.exports = {
       comments: false,
     }),
     new webpack.LoaderOptionsPlugin({
-      debug: true,
+      debug: false,
+      minimize: true,
     }),
     new ExtractTextPlugin({
-      filename: 'assets/[name].css',
+      filename: 'assets/[hash].main.css',
       allChunks: true,
     }),
-    new CopyWebpackPlugin([
-      {
-        from: 'index.html',
+    new HTMLWebpackPlugin({
+        template: 'index.html',
+        inject: true,
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production'),
       },
-      {
-        from: 'static/assets',
-        to: 'assets',
-      },
-    ],
-    {
-      // By default, we only copy modified files during
-      // a watch or webpack-dev-server build. Setting this
-      // to `true` copies all files.
-      copyUnmodified: false,
     }),
   ],
 };

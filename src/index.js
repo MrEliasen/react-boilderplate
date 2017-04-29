@@ -1,22 +1,33 @@
 /*
 * @Author: Mark Eliasen
-* @Date:   2017-03-01 17:29:24
+* @Date:   2017-03-01 17:45:14
 * @Last Modified by:   Mark Eliasen
-* @Last Modified time: 2017-04-12 15:30:19
+* @Last Modified time: 2017-04-30 00:02:36
 */
 
 import React from 'react';
-import {render} from 'react-dom';
-import {Router, Route, browserHistory} from 'react-router';
+import ReactDOM from 'react-dom';
+import {AppContainer} from 'react-hot-loader';
 
-import App from './Components/app/App';
-import Login from './Components/login/Login';
+import App from './Components/Routes';
 
-render(
-    <Router history={browserHistory}>
-        <Route component={App}>
-            <Route path="/" component={Login}/>
-        </Route>
-    </Router>,
-    document.getElementById('app')
-);
+if (process.env.NODE_ENV === 'production') {
+    ReactDOM.render(<App/>, document.getElementById('root'));
+} else {
+    const render = (Component) => {
+      ReactDOM.render(
+        <AppContainer>
+          <Component />
+        </AppContainer>,
+        document.getElementById('root')
+      );
+    };
+
+    render(App);
+
+    if (module.hot) {
+        module.hot.accept('./Components/Routes', () => {
+            render(App);
+        });
+    }
+}
