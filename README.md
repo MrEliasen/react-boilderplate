@@ -9,8 +9,8 @@ Minimal boilerplate, with sass loader, hot loader and dev server. Structually im
 
 ## Usage
 
-In dev: ``` npm run start ```
-To build: ``` npm run build ```
+Development: ``` npm run start ```    
+Building: ``` npm run build ```    
 It will output to ``` ./dist ```
 
 ## License
