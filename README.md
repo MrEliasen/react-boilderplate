@@ -1,6 +1,6 @@
 # Rect Boilerplate
 
-Minimal boilerplate, with sass loader, hot loader and dev server.
+Minimal boilerplate, with sass loader, hot loader and dev server. Structually implemented Redux as well.
 
 ## Installation
 

@@ -2,7 +2,7 @@
 * @Author: Mark Eliasen
 * @Date:   2017-03-01 17:44:28
 * @Last Modified by:   Mark Eliasen
-* @Last Modified time: 2017-04-29 23:57:52
+* @Last Modified time: 2017-06-08 14:56:01
 */
 const path = require('path');
 const webpack = require('webpack');
@@ -64,10 +64,22 @@ module.exports = {
           ],
         }),
         //exclude: /node_modules/,
+      },,
+      {
+        test: /\.(png|jpg|gif)$/,
+        loader: 'file-loader',
+        query: {
+          name: '[name]-[hash].[ext]',
+          outputPath: 'assets/images/',
+        },
       },
       {
-        test: /\.(png|jpg|wav|mp3)$/,
-        loader: 'url-loader?limit=4096',
+        test: /\.(wav|mp3|ogg)$/,
+        loader: 'file-loader',
+        query: {
+          name: '[name].[ext]',
+          outputPath: 'assets/audio/',
+        },
       },
     ],
   },

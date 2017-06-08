@@ -2,18 +2,23 @@
 * @Author: Mark Eliasen
 * @Date:   2017-03-01 17:45:14
 * @Last Modified by:   Mark Eliasen
-* @Last Modified time: 2017-04-30 00:02:36
+* @Last Modified time: 2017-06-08 14:48:37
 */
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {AppContainer} from 'react-hot-loader';
 
-import App from './Components/Routes';
+import Routes from './routes';
 
+// When building the app
 if (process.env.NODE_ENV === 'production') {
-    ReactDOM.render(<App/>, document.getElementById('root'));
+    ReactDOM.render(
+        <Routes />,
+        document.getElementById('root')
+    );
 } else {
+    // When developing the app
     const render = (Component) => {
       ReactDOM.render(
         <AppContainer>
@@ -23,11 +28,13 @@ if (process.env.NODE_ENV === 'production') {
       );
     };
 
-    render(App);
+    render(Routes);
 
     if (module.hot) {
-        module.hot.accept('./Components/Routes', () => {
-            render(App);
+        module.hot.accept('./routes', () => {
+            render(
+                Routes
+            );
         });
     }
 }

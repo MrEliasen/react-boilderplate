@@ -2,14 +2,14 @@
 * @Author: mark
 * @Date:   2017-03-01 15:31:23
 * @Last Modified by:   Mark Eliasen
-* @Last Modified time: 2017-04-30 00:07:41
+* @Last Modified time: 2017-06-08 14:35:36
 */
 
 import React from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 /* Styling */
-import '../../Assets/styles/App.scss';
+import '../../assets/styles/app.scss';
 
 class App extends React.Component {
     constructor() {
