@@ -2,7 +2,7 @@
 * @Author: Mark Eliasen
 * @Date:   2017-04-18 15:00:31
 * @Last Modified by:   Mark Eliasen
-* @Last Modified time: 2017-06-08 14:45:14
+* @Last Modified time: 2017-06-08 14:59:10
 */
 
 import React from 'react';
@@ -10,8 +10,8 @@ import {Router, Route, hashHistory} from 'react-router';
 import {Provider} from 'react-redux';
 
 import Store from './store';
-import App from './components/app/app';
-import Home from './components/home/home';
+import App from './components/app';
+import Home from './components/home';
 
 class Routes extends React.Component {
     render() {
